@@ -1,0 +1,26 @@
+﻿<Window x:Class="RusEnginersDb_CLIENT.GetItemsByCategoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RusEnginersDb_CLIENT"
+        mc:Ignorable="d"
+        Title="GetItemsByCategoryWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Выберите категорию"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" x:Name="CategotyListBox" SelectionChanged="CategoryChoosed"/>
+            <ListBox Grid.Column="1" x:Name="SubcategoryListBox"/>
+        </Grid>
+        <Button Grid.Row="2" Content="Ок" Margin="3" Click="Button_Click"/>
+    </Grid>
+</Window>

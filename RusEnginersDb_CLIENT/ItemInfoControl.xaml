@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="RusEnginersDb_CLIENT.ItemInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RusEnginersDb_CLIENT"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+    </UserControl.Resources>
+
+    <Border BorderBrush="Gainsboro" BorderThickness="1">
+        <ScrollViewer>
+            <StackPanel>
+                <Image x:Name="ItemBitmap" Height="50" Width="50" HorizontalAlignment="Left" Margin="10" />
+                <Label Content="Название" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemName" Margin="10"/>
+                <Label Content="Категория" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemCategory" Margin="10"/>
+                <Label Content="Подкатегория" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemSubcategory" Margin="10"/>
+                <Label Content="Производитель" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemMan" Margin="10"/>
+                <Label Content="Оценка" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemRate" Margin="10"/>
+                <Label Content="Комментарий" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemComment" TextWrapping="Wrap" Margin="10"/>
+                <Label Content="Изображения"/>
+                <ListBox x:Name="ItemImageList">
+                    <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Converter={StaticResource bitmapConverter}}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

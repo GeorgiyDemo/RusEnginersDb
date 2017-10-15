@@ -1,0 +1,74 @@
+﻿<Window x:Class="RusEnginersDb_SERVER.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RusEnginersDb_SERVER"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="538.606">
+    <Window.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+
+        <System:Double x:Key="SlideMenuOpenedWidth">175</System:Double>
+        <System:Double x:Key="SlideMenuClosedWidth">40</System:Double>
+
+        <Storyboard x:Key="sbShowLeftMenu" >
+            <DoubleAnimation  Storyboard.TargetProperty="Width" From="{StaticResource SlideMenuClosedWidth}" To="{StaticResource SlideMenuOpenedWidth}" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideLeftMenu">
+            <DoubleAnimation  Storyboard.TargetProperty="Width" From="{StaticResource SlideMenuOpenedWidth}" To="{StaticResource SlideMenuClosedWidth}" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+
+    </Window.Resources>
+
+
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выйти" />
+            </MenuItem>
+            <MenuItem Header="О программе">
+                <MenuItem Header="Разработчик" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="SlideMenu" Background="WhiteSmoke" Width="{StaticResource SlideMenuClosedWidth}">
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb_SERVER;component/Images/Menu.png" ItemClick="MenuItemClick"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="35"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Image Source="pack://application:,,,/RusEnginersDb_SERVER;component/Images/Icon.png" Height="50" Width="50" Margin="5"/>
+                    <Label Content="Сервер базы данных" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Margin="10">
+                    <StackPanel >
+                        <Label Content="Краткое руководство:"/>
+                        <TextBlock Text="• Для просмотра проектов перейдите в меню Проекты" TextWrapping="Wrap"/>
+                        <TextBlock Text="• Для обновления списка товаров и услуг перейдите в меню Элементы" TextWrapping="Wrap"/>
+                        <Label Content="Список адресов:"/>
+                        <TextBox x:Name="IpTextBox" IsReadOnly="True" BorderBrush="Transparent" BorderThickness="0"/>
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </Grid>
+        </Grid>
+
+
+    </DockPanel>
+
+</Window>

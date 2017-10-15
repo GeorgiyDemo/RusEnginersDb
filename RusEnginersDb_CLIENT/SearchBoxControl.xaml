@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="RusEnginersDb_CLIENT.SearchBoxControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RusEnginersDb_CLIENT"
+             mc:Ignorable="d" 
+             d:DesignWidth="300"
+             x:Name="SearchBoxControlMain">
+    <TextBox>
+        <TextBox.Template>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" TextChanged="TextBox_TextChanged" Text="{Binding Path=SText,ElementName=SearchBoxControlMain, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                    <TextBlock Text="🔍" HorizontalAlignment="Right" VerticalAlignment="Center" MouseLeftButtonDown="TextBox_MouseLeftButtonDown" Width="25" Grid.Column="1"/>
+                </Grid>
+            </ControlTemplate>
+        </TextBox.Template>
+    </TextBox>
+</UserControl>

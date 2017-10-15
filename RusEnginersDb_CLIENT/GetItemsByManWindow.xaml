@@ -1,0 +1,30 @@
+﻿<Window x:Class="RusEnginersDb_CLIENT.GetItemsByManWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RusEnginersDb_CLIENT"
+        mc:Ignorable="d"
+        Title="GetItemsByManWindow" Height="300" Width="300">
+    <Window.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Выберите производителя"/>
+        <ListBox Grid.Row="1" x:Name="ManList" SelectionChanged="ManList_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="45">
+                        <Image Source="{Binding Path=Bitmap, Converter={StaticResource bitmapConverter}}"/>
+                        <Label Content="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
