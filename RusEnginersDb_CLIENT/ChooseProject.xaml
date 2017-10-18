@@ -56,7 +56,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="5">
                         <Image x:Name="ProjectImage" Height="50" Width="50" Source="pack://application:,,,/RusEnginersDb;component/Images/DefaultIcon.png"/>
-                        <Button Content="Выбрать"/>
+                        <Button Content="Выбрать" Click="LoadBitmapClick"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="5">
                         <Label Content="Название" MinHeight="50" VerticalContentAlignment="Bottom"/>
@@ -72,7 +72,7 @@
         </Grid>
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
             <Label Content="Или вы можете " VerticalContentAlignment="Center"/>
-            <Button Content="Открыть проект" Margin="5"/>
+            <Button Content="Открыть проект" Click="OpenProject" Margin="5"/>
         </StackPanel>
 
 

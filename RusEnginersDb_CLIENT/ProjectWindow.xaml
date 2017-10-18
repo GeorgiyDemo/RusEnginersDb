@@ -28,6 +28,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить" Click="SaveMenuClick" />
                 <MenuItem Header="Выйти" />
             </MenuItem>
             <MenuItem Header="О программе">

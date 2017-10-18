@@ -157,7 +157,12 @@ namespace RusEnginersDb_CLIENT
             SearchParams.Remove(item);
         }
 
-        
+        private void ItemClicked()
+        {
+            AddItemWindow aiw = new AddItemWindow(ItemList.SelectedItem as Item);
+            aiw.ShowDialog();
+        }
+
     }
 
     

@@ -17,18 +17,9 @@ namespace RusEnginersDb_SHARED
         public Project(string Name, string Comment, Bitmap Bitmap)
         {
             History = new List<HistoryItem>();
-            History.Add(new HistoryItem("Запуск проекта", DateTime.Now,
-            new Item[] {
-                new Item("GX960", "Привод", "ДВС", 
-                "Honda", 1000, 5, "lolka", 
-                new Bitmap(@"C:\1.jpg"),  //Иконка
-                new Bitmap[]{ new Bitmap(@"C:\1.jpg") }) //Массив картинок
-            })
-                
-            );
 
             //Инициализация списка
-            CurrentList = History.Last<HistoryItem>().ItemList;
+            CurrentList = new ObservableCollection<Item>();
 
             this.Name = Name;
             this.Comment = Comment;
@@ -48,6 +39,7 @@ namespace RusEnginersDb_SHARED
         public ObservableCollection<Item> CurrentList { get; set; }
     }
 
+    [Serializable]
     public class HistoryItem
     {
         public HistoryItem(string Comment, DateTime ItemTime, Item[] ItemList)

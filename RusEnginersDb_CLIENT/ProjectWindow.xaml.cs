@@ -25,18 +25,17 @@ namespace RusEnginersDb_CLIENT
     /// </summary>
     public partial class ProjectWindow : Window
     {
-        private Project project;
+        private static Project project;
+        public static void AddItem(Item i)
+        {
+            project.CurrentList.Add(i);
+        }
 
         bool IsMenuOpened = false;
 
-        public ProjectWindow(string path)
+        public ProjectWindow(Project proj)
         {
-            //подгрузить проект по пути используя серелизацию
-            FileStream fs = new FileStream(path, FileMode.Open);
-            BinaryFormatter formatter = new BinaryFormatter();
-            project = (Project)formatter.Deserialize(fs);
-            fs.Close();
-
+            project = proj;
             Init();
         }
 
@@ -61,6 +60,8 @@ namespace RusEnginersDb_CLIENT
             ProjectBitmap.Source = App.ConvertToBitmapSource(project.Bitmap);
             ProjectName.Text = project.Name;
             ProjectComment.Text = project.Comment;
+
+            project.CurrentList.Add(new DbKeeper().Item.First());
 
             ItemList.ItemsSource = project.CurrentList;
 
@@ -125,6 +126,12 @@ namespace RusEnginersDb_CLIENT
             if (item == null) return;
 
             project.CurrentList.Remove(item as Item);
+        }
+
+        private void SaveMenuClick(object sender, RoutedEventArgs e)
+        {
+            SaveManager sm = new SaveManager(project);
+            sm.ShowDialog();
         }
     }
 }

@@ -60,20 +60,6 @@ namespace RusEnginersDb_CLIENT
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            DbKeeper db = new DbKeeper();
-            db.Item.Add(
-                new Item("GX960", "Привод", "ДВС",
-                "Honda", 1000, 5, "lolka",
-                new Bitmap(@"C:\1.jpg"),  //Иконка
-                new Bitmap[]{ new Bitmap(@"C:\1.jpg") },//Массив картинок
-                new Dictionary<string, int> {
-                    { "Диаметр вала", 100 },
-                    { "Вес", 200 },
-                }) 
-            );
-
-            db.Man.Add(new Manufacturer(new Bitmap(@"C:\1.jpg"), "Honda"));
-
             ChooseProject cp = new ChooseProject();
             cp.ShowDialog();
         }

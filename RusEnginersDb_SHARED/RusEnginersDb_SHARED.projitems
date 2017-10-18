@@ -9,7 +9,7 @@
     <Import_RootNamespace>RusEnginersDb_SHARED</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DbKeeper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ItemData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project.cs" />
   </ItemGroup>
 </Project>

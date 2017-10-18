@@ -56,10 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddItemWindow.xaml.cs">
+      <DependentUpon>AddItemWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DbKeeper.cs" />
     <Compile Include="GetItemsByCategoryWindow.xaml.cs">
       <DependentUpon>GetItemsByCategoryWindow.xaml</DependentUpon>
     </Compile>
@@ -68,6 +72,12 @@
     </Compile>
     <Compile Include="ItemListControl.xaml.cs">
       <DependentUpon>ItemListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManInfoWindow.xaml.cs">
+      <DependentUpon>ManInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SaveManager.xaml.cs">
+      <DependentUpon>SaveManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchBoxControl.xaml.cs">
       <DependentUpon>SearchBoxControl.xaml</DependentUpon>
@@ -115,6 +125,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AddItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChooseProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,7 +149,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProjectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SaveManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,7 +9,7 @@
         x:Name="SearchItemWindowMain"
         Title="SearchItemWindow" Height="300" Width="300">
     <Window.Resources>
-        <ObjectDataProvider ObjectType="{x:Type shared:DbKeeper}"
+        <ObjectDataProvider ObjectType="{x:Type local:DbKeeper}"
                       MethodName="GetParamsList" x:Key="ParamsList"/>
     </Window.Resources>
     <Grid>
@@ -54,6 +54,6 @@
             </ScrollViewer>
         </Expander>
 
-        <local:ItemListControl x:Name="ItemList" Grid.Row="2" Margin="5"/>
+        <local:ItemListControl x:Name="ItemList" Grid.Row="2" Margin="5" ItemClicked="ItemClicked"/>
     </Grid>
 </Window>

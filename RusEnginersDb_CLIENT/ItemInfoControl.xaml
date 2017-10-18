@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RusEnginersDb_CLIENT"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="1000" d:DesignWidth="300">
 
     <UserControl.Resources>
         <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
@@ -22,13 +22,18 @@
                 <Label Content="Подкатегория" FontWeight="Bold"/>
                 <TextBlock x:Name="ItemSubcategory" Margin="10"/>
                 <Label Content="Производитель" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="ItemMan" Margin="10"/>
+                <TextBlock Text="?" Foreground="Blue" MouseDown="ManInfo"/>
+                </StackPanel>
+                <Label Content="Время доставки(дни)" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemDelivary" Margin="10"/>
                 <Label Content="Оценка" FontWeight="Bold"/>
                 <TextBlock x:Name="ItemRate" Margin="10"/>
                 <Label Content="Комментарий" FontWeight="Bold"/>
                 <TextBlock x:Name="ItemComment" TextWrapping="Wrap" Margin="10"/>
                 <Label Content="Изображения"/>
-                <ListBox x:Name="ItemImageList">
+                <ListBox x:Name="ItemImageList" Margin="5">
                     <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
@@ -40,6 +45,23 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                <Label Content="Ссылки"/>
+                <ListBox x:Name="ItemLinksList" HorizontalContentAlignment="Stretch" Margin="10" SelectionChanged="LinkClicked">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Title, Mode=OneTime}" Grid.Column="0"/>
+                                <TextBlock Text="{Binding Url, Mode=OneTime}" Grid.Column="2"/>
+                            </Grid>                       
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                </ListBox>
             </StackPanel>
         </ScrollViewer>
     </Border>
