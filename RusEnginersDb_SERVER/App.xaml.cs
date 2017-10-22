@@ -151,15 +151,6 @@ namespace RusEnginersDb_SERVER
         {
             SData = new ServerData();
 
-            SData.Items.Add(
-                    new Item("GX960", "Привод", "ДВС",
-                    "Honda", 1000, 5, 60, "lolka",
-                    new Bitmap(@"C:\1.jpg"),  //Иконка
-                    new Bitmap[] { new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg") },//Массив картинок
-                    new Dictionary<string, int> { { "Диаметр", 100 } }, //Свойства
-                    new Link[] { new Link("Yandex", "http://yandex.ru"), new Link("Скайп", "skype://") }
-            ));
-
             MainWindow w = new MainWindow();
             w.ShowDialog();
         }

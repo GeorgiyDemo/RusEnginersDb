@@ -43,6 +43,7 @@ namespace RusEnginersDb_SERVER
             ItemCategory.ItemsSource = App.SData.GetCategoryArray();
             ItemImageList.ItemsSource = Bitmaps;
             ItemLinksList.ItemsSource = Links;
+            ItemOptions.ItemsSource = Options;
         }
 
         private void ChooseLogo(object sender, RoutedEventArgs e)
@@ -64,8 +65,8 @@ namespace RusEnginersDb_SERVER
                 int rate;
                 int d;
                 if (!int.TryParse(ItemPrice.Text, out price)) throw new Exception("Сумма это число");
-                if (!int.TryParse(ItemPrice.Text, out rate)) throw new Exception("Оценка это число");
-                if (!int.TryParse(ItemPrice.Text, out d)) throw new Exception("Доставка это число");
+                if (!int.TryParse(ItemRate.Text, out rate)) throw new Exception("Оценка это число");
+                if (!int.TryParse(ItemDelivary.Text, out d)) throw new Exception("Доставка это число");
                 Item i = new Item(ItemName.Text, ItemCategory.Text, ItemSubcategory.Text, ItemMan.Text, price, rate, d, ItemComment.Text, logo, Bitmaps.ToArray(),Options, Links.ToArray());
                 App.SData.Items.Add(i);
             }
@@ -107,7 +108,14 @@ namespace RusEnginersDb_SERVER
         {
             var item = (ItemLinksList.SelectedItem as Link).Url;
             if (item == null) return;
-            System.Diagnostics.Process.Start(item);
+            try
+            {
+                System.Diagnostics.Process.Start(item);
+            }
+            catch(Exception)
+            {
+                Interaction.MsgBox("Не могу открыть ссылку!");
+            }
         }
 
         private void AddOption(object sender, RoutedEventArgs e)
@@ -123,6 +131,8 @@ namespace RusEnginersDb_SERVER
             {
                 Interaction.MsgBox("Произошла ошибка: " + ex.Message);
             }
+            ItemOptions.ItemsSource = null;
+            ItemOptions.ItemsSource = Options;
         }
 
         private void RemoveOption(object sender, RoutedEventArgs e)
@@ -130,6 +140,8 @@ namespace RusEnginersDb_SERVER
             var item = ItemLinksList.SelectedItem as String;
             if (item == null) return;
             Options.Remove(item);
+            ItemOptions.ItemsSource = null;
+            ItemOptions.ItemsSource = Options;
         }
     }
 }

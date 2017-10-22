@@ -31,7 +31,7 @@
             <Label Content="Комментарий" FontWeight="Bold"/>
             <TextBox x:Name="ItemComment" TextWrapping="Wrap" Margin="10"/>
             <Label Content="Свойства" FontWeight="Bold"/>
-            <ListBox x:Name="ItemOptions" HorizontalContentAlignment="Stretch" Margin="10" SelectionChanged="LinkClicked" MinHeight="25" MaxHeight="100">
+            <ListBox x:Name="ItemOptions" HorizontalContentAlignment="Stretch" Margin="10" MinHeight="25" MaxHeight="100">
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Добавить" Click="AddOption"/>
