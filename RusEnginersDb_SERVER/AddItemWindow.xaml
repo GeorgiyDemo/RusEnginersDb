@@ -1,0 +1,102 @@
+﻿<Window x:Class="RusEnginersDb_SERVER.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RusEnginersDb_SERVER"
+        mc:Ignorable="d"
+        Title="AddItemWindow" Height="320.707" Width="300">
+    <Window.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+    </Window.Resources>
+    <ScrollViewer>
+        <StackPanel>
+            <Label Content="Картинка" FontWeight="Bold"/>
+            <Image x:Name="ItemBitmap" Source="pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png" Height="50" Width="50" HorizontalAlignment="Left" Margin="10" />
+            <Button Width="50" Margin="10" Content="Выбрать" Click="ChooseLogo" HorizontalAlignment="Left"/>
+            <Label Content="Название" FontWeight="Bold"/>
+            <TextBox x:Name="ItemName" Margin="10"/>
+            <Label Content="Категория" FontWeight="Bold"/>
+            <ComboBox x:Name="ItemCategory" Margin="10" IsEditable="True" IsReadOnly="False" SelectionChanged="UpdateSubcategory"/>
+            <Label Content="Подкатегория" FontWeight="Bold"/>
+            <ComboBox x:Name="ItemSubcategory" Margin="10" IsEditable="True" IsReadOnly="False"/>
+            <Label Content="Производитель" FontWeight="Bold"/>
+            <ComboBox x:Name="ItemMan" Margin="10" IsEditable="True" IsReadOnly="True"/>
+            <Label Content="Время доставки(дни)" FontWeight="Bold"/>
+            <TextBox x:Name="ItemDelivary" Margin="10"/>
+            <Label Content="Оценка" FontWeight="Bold"/>
+            <TextBox x:Name="ItemRate" Margin="10"/>
+            <Label Content="Цена" FontWeight="Bold"/>
+            <TextBox x:Name="ItemPrice" Margin="10"/>
+            <Label Content="Комментарий" FontWeight="Bold"/>
+            <TextBox x:Name="ItemComment" TextWrapping="Wrap" Margin="10"/>
+            <Label Content="Свойства" FontWeight="Bold"/>
+            <ListBox x:Name="ItemOptions" HorizontalContentAlignment="Stretch" Margin="10" SelectionChanged="LinkClicked" MinHeight="25" MaxHeight="100">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="AddOption"/>
+                        <MenuItem Header="Удалить" Click="RemoveOption"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Key, Mode=OneTime}" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Value, Mode=OneTime}" Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label Content="Изображения" FontWeight="Bold"/>
+            <ListBox x:Name="ItemImageList" Margin="10" MinHeight="25" MaxHeight="100">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="AddImage"/>
+                        <MenuItem Header="Удалить" Click="RemoveImage"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Converter={StaticResource bitmapConverter}}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label Content="Ссылки" FontWeight="Bold"/>
+            <ListBox x:Name="ItemLinksList" HorizontalContentAlignment="Stretch" Margin="10" MinHeight="25" MaxHeight="100" SelectionChanged="LinkClicked">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="AddLink"/>
+                        <MenuItem Header="Удалить" Click="RemoveLink"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Title, Mode=OneTime}" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Url, Mode=OneTime}" Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            <Button Content="Добавить" Margin="10" Height="40" Click="AddThisItem"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RusEnginersDb_SHARED;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,25 @@ namespace RusEnginersDb_SERVER
         public ItemEditorWindow()
         {
             InitializeComponent();
+
+            ItemDataGrid.ItemsSource = null;
+            ItemDataGrid.ItemsSource = App.SData.Items;
+        }
+
+        private void RemoveItem(object sender, RoutedEventArgs e)
+        {
+            var item = ItemDataGrid.SelectedItem as Item;
+            if (item == null) return;
+            App.SData.Items.Remove(item);
+        }
+
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+            AddItemWindow aiw = new AddItemWindow();
+            aiw.ShowDialog();
+            var item = aiw.RetItem;
+            if (item == null) return;
+            App.SData.Items.Add(item);
         }
     }
 }

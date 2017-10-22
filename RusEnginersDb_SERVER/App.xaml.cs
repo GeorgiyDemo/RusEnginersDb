@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using RusEnginersDb_SHARED;
+using Microsoft.VisualBasic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace RusEnginersDb_SERVER
 {
@@ -55,8 +59,107 @@ namespace RusEnginersDb_SERVER
             return bmp;
         }
 
+        public static void GetBitmap(out Bitmap logo)
+        {
+            Bitmap tmp;
+
+            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+
+            // Set filter options and filter index.
+            openFileDialog1.Filter = "Image (.jpg)|*.jpg|All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(openFileDialog1.FileName))
+            {
+                try
+                {
+                    tmp = new Bitmap(openFileDialog1.FileName);
+                    logo = tmp;
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Interaction.MsgBox("Не удается добавить картинку! " + ex.Message);
+                }
+            }
+
+            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png")));
+        }
+
+        static ServerData sdata = null;
+        static object sdatalocker = new Object();
+
+        public static ServerData SData
+        {
+            get
+            {
+                lock (sdatalocker)
+                {
+                    return sdata;
+                }
+            }
+            set
+            {
+                lock (sdatalocker)
+                {
+                    sdata = value;
+                }
+            }
+        }
+
+        public static void SaveData(string path)
+        {
+            lock (sdatalocker)
+            {
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+                    {
+                        formatter.Serialize(fs, sdata);
+                        fs.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Interaction.MsgBox("Неудается провести сериализацию: " + ex.Message);
+                }
+            }
+        }
+
+        public static void LoadData(string path)
+        {
+            lock (sdatalocker)
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream fs = new FileStream(path, FileMode.Open);
+                try
+                {
+                    sdata = (ServerData)formatter.Deserialize(fs);
+                }
+                catch (Exception ex)
+                {
+                    Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
+                }
+                fs.Close();
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            SData = new ServerData();
+
+            SData.Items.Add(
+                    new Item("GX960", "Привод", "ДВС",
+                    "Honda", 1000, 5, 60, "lolka",
+                    new Bitmap(@"C:\1.jpg"),  //Иконка
+                    new Bitmap[] { new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg") },//Массив картинок
+                    new Dictionary<string, int> { { "Диаметр", 100 } }, //Свойства
+                    new Link[] { new Link("Yandex", "http://yandex.ru"), new Link("Скайп", "skype://") }
+            ));
+
             MainWindow w = new MainWindow();
             w.ShowDialog();
         }

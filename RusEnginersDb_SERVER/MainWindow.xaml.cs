@@ -16,6 +16,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RusEnginersDb_SHARED;
+using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace RusEnginersDb_SERVER
 {
@@ -42,6 +46,18 @@ namespace RusEnginersDb_SERVER
             IsMenuOpened = !IsMenuOpened;
         }
 
+        public void Items()
+        {
+            ItemEditorWindow iew = new ItemEditorWindow();
+            iew.ShowDialog();
+        }
+
+        public void Mans()
+        {
+            ManEditorWindow mew = new ManEditorWindow();
+            mew.ShowDialog();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,6 +70,38 @@ namespace RusEnginersDb_SERVER
                 IpTextBox.Text += item.ToString() + " "+ item.AddressFamily.ToString() + "\n";
             }
             IpTextBox.Text += "InterNetwork - локальный адресс";
+        }
+
+        private void SaveData(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            // Set filter options and filter index.
+            saveFileDialog1.Filter = "Binary (.bin)|*.bin";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(saveFileDialog1.FileName))
+            {
+                App.SaveData(saveFileDialog1.FileName);
+            }
+        }
+
+
+        private void LoadData(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            // Set filter options and filter index.
+            openFileDialog1.Filter = "Binary (.bin)|*.bin";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(openFileDialog1.FileName))
+            {
+                App.LoadData(openFileDialog1.FileName);
+            }
         }
     }
 }

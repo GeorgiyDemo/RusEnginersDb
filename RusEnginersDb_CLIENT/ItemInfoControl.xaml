@@ -30,10 +30,28 @@
                 <TextBlock x:Name="ItemDelivary" Margin="10"/>
                 <Label Content="Оценка" FontWeight="Bold"/>
                 <TextBlock x:Name="ItemRate" Margin="10"/>
+                <Label Content="Цена" FontWeight="Bold"/>
+                <TextBlock x:Name="ItemPrice" Margin="10"/>
                 <Label Content="Комментарий" FontWeight="Bold"/>
                 <TextBlock x:Name="ItemComment" TextWrapping="Wrap" Margin="10"/>
-                <Label Content="Изображения"/>
-                <ListBox x:Name="ItemImageList" Margin="5">
+                <Label Content="Свойства" FontWeight="Bold"/>
+                <ListBox x:Name="ItemOptions" HorizontalContentAlignment="Stretch" Margin="10" SelectionChanged="LinkClicked">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Key, Mode=OneTime}" Grid.Column="0"/>
+                                <TextBlock Text="{Binding Value, Mode=OneTime}" Grid.Column="2"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Label Content="Изображения" FontWeight="Bold"/>
+                <ListBox x:Name="ItemImageList" Margin="10">
                     <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
@@ -45,7 +63,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                <Label Content="Ссылки"/>
+                <Label Content="Ссылки" FontWeight="Bold"/>
                 <ListBox x:Name="ItemLinksList" HorizontalContentAlignment="Stretch" Margin="10" SelectionChanged="LinkClicked">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -57,10 +75,9 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Title, Mode=OneTime}" Grid.Column="0"/>
                                 <TextBlock Text="{Binding Url, Mode=OneTime}" Grid.Column="2"/>
-                            </Grid>                       
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                    
                 </ListBox>
             </StackPanel>
         </ScrollViewer>

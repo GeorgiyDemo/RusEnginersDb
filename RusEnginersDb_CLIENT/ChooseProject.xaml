@@ -13,6 +13,8 @@
         Height="500" 
         Width="700">
     <Window.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+        
         <Style TargetType="ListBox" x:Key="ListBoxEmptyStyle" BasedOn="{StaticResource {x:Type ListBox}}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
@@ -44,8 +46,15 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Column="0" Margin="5" Style="{StaticResource ListBoxEmptyStyle}">
-            
+            <ListBox x:Name="ProjectList" Grid.Column="0" Margin="5" Style="{StaticResource ListBoxEmptyStyle}" SelectionChanged="ProjectListItemClick">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="30">
+                            <Image Source="{Binding Icon,Mode=OneTime,Converter={StaticResource bitmapConverter}}" />
+                            <Label Content="{Binding Path, Mode=OneTime}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <StackPanel Grid.Column="1">
                 <Label Content="Создать новый проект"/>

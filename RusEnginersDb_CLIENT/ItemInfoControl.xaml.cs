@@ -32,6 +32,7 @@ namespace RusEnginersDb_CLIENT
             ItemMan.Text = item.Manufacturer;
             ItemComment.Text = item.Info;
             ItemDelivary.Text = item.Delivery.ToString();
+            ItemPrice.Text = item.Price.ToString();
 
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < item.Rate; i++)
@@ -56,6 +57,15 @@ namespace RusEnginersDb_CLIENT
             else
             {
                 ItemLinksList.Height = 0;
+            }
+
+            if(item.Options.Count > 0)
+            {
+                ItemOptions.ItemsSource = item.Options;
+            }
+            else
+            {
+                ItemOptions.Height = 0;
             }
         }
 

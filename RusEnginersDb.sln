@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RusEnginersDb_CLIENT", "RusEnginersDb_CLIENT\RusEnginersDb_CLIENT.csproj", "{5559D8E5-5A43-47F7-AD27-AD32C347A5F3}"
 EndProject
@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RusEnginersDb_SERVER", "Rus
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{22bb4d4b-7fba-4ab0-b44d-80a0d5b95ec1}*SharedItemsImports = 4
 		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{5559d8e5-5a43-47f7-ad27-ad32c347a5f3}*SharedItemsImports = 4
 		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{f7fa19d1-1ae0-4730-954f-fe620cb5ff42}*SharedItemsImports = 13
 	EndGlobalSection

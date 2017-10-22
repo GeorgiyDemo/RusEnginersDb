@@ -133,5 +133,11 @@ namespace RusEnginersDb_CLIENT
             SaveManager sm = new SaveManager(project);
             sm.ShowDialog();
         }
+
+        private void Chart()
+        {
+            ChartWindow cw = new ChartWindow(project);
+            cw.ShowDialog();
+        }
     }
 }

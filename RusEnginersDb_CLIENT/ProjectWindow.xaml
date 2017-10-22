@@ -47,9 +47,9 @@
                 <local:SlideMenuItemControl IconHeightWidth="20" Text="Производители" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Manufacturer.png" ItemClick="Manufacturer"/>
                 <local:SlideMenuItemControl IconHeightWidth="20" Text="Категории" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Category.png" ItemClick="Category"/>
                 <Separator/>
-                <local:SlideMenuItemControl IconHeightWidth="20" Text="Диаграммы" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Chart.png"/>
+                <local:SlideMenuItemControl IconHeightWidth="20" Text="Диаграммы" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Chart.png" ItemClick="Chart"/>
             </StackPanel>
-            
+
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
@@ -67,16 +67,17 @@
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="200" />
+                        <ColumnDefinition MinWidth="200" Width="30*" />
+                        <ColumnDefinition Width="178*"/>
                         <ColumnDefinition Width="5" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="209*" />
 
                     </Grid.ColumnDefinitions>
 
-                    <local:ItemListControl x:Name="ItemList" Grid.Column="0" ItemClicked="ItemClick" AddItem="AddItem" RemoveItem="RemoveItem"/>
+                    <local:ItemListControl x:Name="ItemList" Grid.Column="0" ItemClicked="ItemClick" AddItem="AddItem" RemoveItem="RemoveItem" Grid.ColumnSpan="2"/>
 
-                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-                    <local:ItemInfoControl x:Name="ItemInfo" Grid.Column="2" Margin="2"/>
+                    <GridSplitter Grid.Column="2" Width="5" HorizontalAlignment="Stretch" />
+                    <local:ItemInfoControl x:Name="ItemInfo" Grid.Column="3" Margin="2"/>
                 </Grid>
             </Grid>
         </Grid>

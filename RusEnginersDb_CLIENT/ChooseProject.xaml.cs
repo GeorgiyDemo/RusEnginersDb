@@ -17,19 +17,113 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
+using System.Collections.ObjectModel;
 
 namespace RusEnginersDb_CLIENT
 {
     /// <summary>
     /// Логика взаимодействия для ChooseProject.xaml
     /// </summary>
+    /// 
+
+    [Serializable]
+    class OpenedProject
+    {
+        public OpenedProject(string path, Bitmap b)
+        {
+            this.Path = path;
+            this.Icon = b;
+        }
+        public string Path { get; private set; }
+        public Bitmap Icon { get; private set; }
+    }
+
     public partial class ChooseProject : Window
     {
         Bitmap image = null;
+        ObservableCollection<OpenedProject> openedlist = null;
+        string openedlistpath = null;
+
+        private void SaveOpenedProjectList()
+        {
+            for(int i = openedlist.Count - 1; i >= 1; i--)
+            {
+                for (int j = i-1; j >= 0; j--)
+                {
+                    if (openedlist[i].Path == openedlist[j].Path)
+                    {
+                        openedlist.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                using (FileStream fs = new FileStream(openedlistpath, FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, openedlist);
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Interaction.MsgBox("Неудается провести сериализацию: " + ex.Message);
+            }
+        }
 
         public ChooseProject()
         {
             InitializeComponent();
+            openedlistpath = System.IO.Path.GetTempPath() + "rusengdbprojpath.bin";
+            if (!File.Exists(openedlistpath))
+            {
+                openedlist = new ObservableCollection<OpenedProject>();
+            }
+            else
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream fs = new FileStream(openedlistpath, FileMode.Open);
+                try
+                {
+                    openedlist = (ObservableCollection<OpenedProject>)formatter.Deserialize(fs);
+                }
+                catch (Exception ex)
+                {
+                    Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
+                    openedlist = new ObservableCollection<OpenedProject>();
+                }
+                fs.Close();
+            }
+
+            ProjectList.ItemsSource = openedlist;
+        }
+
+        private void OpenProjectFromPath(string path)
+        {
+            Project proj;
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fs = new FileStream(path, FileMode.Open);
+            try
+            {
+                proj = (Project)formatter.Deserialize(fs);
+            }
+            catch (Exception ex)
+            {
+                Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
+                return;
+            }
+            fs.Close();
+            SaveManager.SetSavePath(path);
+
+            openedlist.Add(new OpenedProject(path, proj.Bitmap));
+            SaveOpenedProjectList();
+
+            ProjectWindow pw = new ProjectWindow(proj);
+            Hide();
+            pw.ShowDialog();
+            Close();
         }
 
         private void CreateProject(object sender, RoutedEventArgs e)
@@ -60,24 +154,7 @@ namespace RusEnginersDb_CLIENT
 
             if (!string.IsNullOrWhiteSpace(openFileDialog1.FileName))
             {
-                Project proj;
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open);
-                try
-                {
-                    proj = (Project)formatter.Deserialize(fs);
-                }
-                catch (Exception ex)
-                {
-                    Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
-                    return;
-                }
-                fs.Close();
-                SaveManager.SetSavePath(openFileDialog1.FileName);
-
-                ProjectWindow pw = new ProjectWindow(proj);
-                Hide();
-                pw.ShowDialog();
+                OpenProjectFromPath(openFileDialog1.FileName);
             }
             else
             {
@@ -108,6 +185,13 @@ namespace RusEnginersDb_CLIENT
                     image = null;
                 }
             }
+        }
+
+        private void ProjectListItemClick(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (sender as ListBox).SelectedItem as OpenedProject;
+            if (item == null) return;
+            OpenProjectFromPath(item.Path);
         }
     }
 }

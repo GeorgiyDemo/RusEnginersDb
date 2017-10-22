@@ -41,6 +41,8 @@
 
             <StackPanel x:Name="SlideMenu" Background="WhiteSmoke" Width="{StaticResource SlideMenuClosedWidth}">
                 <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb_SERVER;component/Images/Menu.png" ItemClick="MenuItemClick"/>
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb_SERVER;component/Images/Items.png" ItemClick="Items"/>
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb_SERVER;component/Images/Manufacturer.png" ItemClick="Mans"/>
             </StackPanel>
 
             <Grid Grid.Column="1">
@@ -62,6 +64,8 @@
                         <TextBlock Text="• Для обновления списка товаров и услуг перейдите в меню Элементы" TextWrapping="Wrap"/>
                         <Label Content="Список адресов:"/>
                         <TextBox x:Name="IpTextBox" IsReadOnly="True" BorderBrush="Transparent" BorderThickness="0"/>
+                        <Button Click="SaveData" Content="Сдампить производителей и элементы" Margin="3"/>
+                        <Button Click="LoadData" Content="Подгрузить производителей и элементы" Margin="3"/>
                     </StackPanel>
                 </ScrollViewer>
                 

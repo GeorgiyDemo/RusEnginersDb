@@ -5,8 +5,110 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RusEnginersDb_SERVER"
         mc:Ignorable="d"
-        Title="ItemEditorWindow" Height="300" Width="300">
+        Title="ItemEditorWindow" Height="300" Width="938">
+    <Window.Resources>
+        <local:ConvertBitmapToBitmapImage x:Shared="false" x:Key="bitmapConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer>
+            <DataGrid x:Name="ItemDataGrid" AutoGenerateColumns="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить элемент" Click="AddItem"/>
+                        <MenuItem Header="Удалить элемент" Click="RemoveItem"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Изображение">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="20" Width="20" Source="{Binding Bitmap, Converter={StaticResource bitmapConverter}, Mode=OneTime}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Category, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Подкатегория" Binding="{Binding Subcategory, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturer, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Доставка" Binding="{Binding Delivery, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTextColumn Header="Оценка" Binding="{Binding Rate, Mode=OneTime}" MinWidth="50" />
+                    <DataGridTemplateColumn Header="Комментарий">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Открыть">
+                                    <TextBlock Text="{Binding Info, Mode=OneTime}"/>
+                                </Expander>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Свойства" MinWidth="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Открыть">
+                                    <ListBox  ItemsSource="{Binding Options, Mode=OneTime}" HorizontalContentAlignment="Stretch">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Path=Key}" Grid.Column="0" />
+                                                    <TextBlock Text="{Binding Path=Value}" Grid.Column="2" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Изображения" MinWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Открыть">
+                                    <ListBox  ItemsSource="{Binding Bitmaps, Mode=OneTime}" Height="100"  HorizontalContentAlignment="Stretch">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Height="95" Source="{Binding Converter={StaticResource bitmapConverter}}"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Ссылки" MinWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Открыть">
+                                    <ListBox  ItemsSource="{Binding Links, Mode=OneTime}" HorizontalContentAlignment="Stretch">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Title, Mode=OneTime}" Grid.Column="0"/>
+                                                    <TextBlock Text="{Binding Url, Mode=OneTime}" Grid.Column="2"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturer, Mode=OneTime}" MinWidth="50" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </Window>
