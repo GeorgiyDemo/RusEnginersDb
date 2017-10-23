@@ -112,6 +112,7 @@ namespace RusEnginersDb_CLIENT
             catch (Exception ex)
             {
                 Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
+                fs.Close();
                 return;
             }
             fs.Close();

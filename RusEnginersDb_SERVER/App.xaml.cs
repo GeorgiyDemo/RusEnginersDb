@@ -89,6 +89,8 @@ namespace RusEnginersDb_SERVER
         }
 
         static ServerData sdata = null;
+        static ServerDataShare sdatashare = null;
+
         static object sdatalocker = new Object();
 
         public static ServerData SData
@@ -149,7 +151,8 @@ namespace RusEnginersDb_SERVER
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            SData = new ServerData();
+            sdata = new ServerData();
+            sdatashare = new ServerDataShare();
 
             MainWindow w = new MainWindow();
             w.ShowDialog();
