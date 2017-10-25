@@ -13,6 +13,8 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RusEnginersDb_SHARED;
+using System.Runtime.CompilerServices;
+
 
 namespace RusEnginersDb_CLIENT
 {
@@ -58,8 +60,39 @@ namespace RusEnginersDb_CLIENT
             return bmp;
         }
 
+        static DbKeeper db;
+        static readonly Object dblock = new Object();
+        public static DbKeeper Db
+        {
+            get
+            {
+                lock (dblock)
+                {
+                    return db;
+                }
+            }
+            set
+            {
+                lock (dblock)
+                {
+                    db = value;
+                }
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            db = new DbKeeper();
+
+            if (db.LastPath == null)
+            {
+                //Первый запуск, подгрузка бд обязательна
+                DatabaseManagerWindow dmw = new DatabaseManagerWindow();
+                dmw.ShowDialog();
+            }
+
+            if (db.Man.Count == 0 || db.Item.Count == 0) Current.Shutdown();
+
             ChooseProject cp = new ChooseProject();
             cp.ShowDialog();
         }

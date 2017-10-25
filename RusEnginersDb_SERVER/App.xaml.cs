@@ -15,7 +15,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace RusEnginersDb_SERVER
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
@@ -85,7 +85,7 @@ namespace RusEnginersDb_SERVER
                 }
             }
 
-            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png")));
+            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb;component/Images/DefaultIcon.png")));
         }
 
         static ServerData sdata = null;

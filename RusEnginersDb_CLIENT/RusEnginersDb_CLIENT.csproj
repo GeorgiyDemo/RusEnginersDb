@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
@@ -44,6 +47,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -72,6 +77,12 @@
     <Compile Include="ChartWindow.xaml.cs">
       <DependentUpon>ChartWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataBaseDownloaderWindow.xaml.cs">
+      <DependentUpon>DataBaseDownloaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseManagerWindow.xaml.cs">
+      <DependentUpon>DatabaseManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DbKeeper.cs" />
     <Compile Include="GetItemsByCategoryWindow.xaml.cs">
       <DependentUpon>GetItemsByCategoryWindow.xaml</DependentUpon>
@@ -93,6 +104,9 @@
     </Compile>
     <Compile Include="SearchItemWindow.xaml.cs">
       <DependentUpon>SearchItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ServerSettingsWindow.xaml.cs">
+      <DependentUpon>ServerSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SlideMenuItemControl.xaml.cs">
       <DependentUpon>SlideMenuItemControl.xaml</DependentUpon>
@@ -125,7 +139,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -144,6 +160,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChooseProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataBaseDownloaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DatabaseManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +207,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ServerSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SlideMenuItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +239,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RusEnginersDb_SERVER\RusEnginersDb_SERVER.csproj">
+      <Project>{22bb4d4b-7fba-4ab0-b44d-80a0d5b95ec1}</Project>
+      <Name>RusEnginersDb_SERVER</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

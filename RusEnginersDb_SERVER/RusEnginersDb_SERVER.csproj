@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{22BB4D4B-7FBA-4AB0-B44D-80A0D5B95EC1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>RusEnginersDb_SERVER</RootNamespace>
-    <AssemblyName>RusEnginersDb_SERVER</AssemblyName>
+    <RootNamespace>RusEnginersDb</RootNamespace>
+    <AssemblyName>RusEnginersDb</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -38,6 +38,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />

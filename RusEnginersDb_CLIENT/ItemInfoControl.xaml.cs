@@ -83,8 +83,7 @@ namespace RusEnginersDb_CLIENT
 
         private void ManInfo(object sender, MouseButtonEventArgs e)
         {
-            DbKeeper db = new DbKeeper();
-            foreach(var item in db.Man)
+            foreach(var item in App.Db.Man)
             {
                 if (item.Name == ItemMan.Text)
                 {

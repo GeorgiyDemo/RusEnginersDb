@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RusEnginersDb_CLIENT", "RusEnginersDb_CLIENT\RusEnginersDb_CLIENT.csproj", "{5559D8E5-5A43-47F7-AD27-AD32C347A5F3}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RusEnginersDb_SHARED", "RusEnginersDb_SHARED\RusEnginersDb_SHARED.сhproj", "{F7FA19D1-1AE0-4730-954F-FE620CB5FF42}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RusEnginersDb_SERVER", "RusEnginersDb_SERVER\RusEnginersDb_SERVER.csproj", "{22BB4D4B-7FBA-4AB0-B44D-80A0D5B95EC1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RusEnginersDb_SHARED", "RusEnginersDb_SHARED\RusEnginersDb_SHARED.shproj", "{A37D6BB7-4896-4DB0-8F8F-F37DDA2F45F6}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{22bb4d4b-7fba-4ab0-b44d-80a0d5b95ec1}*SharedItemsImports = 4
 		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{5559d8e5-5a43-47f7-ad27-ad32c347a5f3}*SharedItemsImports = 4
-		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{f7fa19d1-1ae0-4730-954f-fe620cb5ff42}*SharedItemsImports = 13
+		RusEnginersDb_SHARED\RusEnginersDb_SHARED.projitems*{a37d6bb7-4896-4db0-8f8f-f37dda2f45f6}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

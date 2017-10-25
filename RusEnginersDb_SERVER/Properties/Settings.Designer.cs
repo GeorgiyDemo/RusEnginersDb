@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RusEnginersDb_SERVER.Properties
+namespace RusEnginersDb.Properties
 {
 
 

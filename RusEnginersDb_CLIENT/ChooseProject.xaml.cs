@@ -104,7 +104,17 @@ namespace RusEnginersDb_CLIENT
         {
             Project proj;
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream fs = new FileStream(path, FileMode.Open);
+
+            FileStream fs;
+            try
+            {
+                fs = new FileStream(path, FileMode.Open);
+            }
+            catch(Exception ex)
+            {
+                Interaction.MsgBox("Не удается открыть: " + ex.Message);
+                return;
+            }
             try
             {
                 proj = (Project)formatter.Deserialize(fs);

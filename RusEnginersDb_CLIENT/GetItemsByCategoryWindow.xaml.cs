@@ -28,10 +28,8 @@ namespace RusEnginersDb_CLIENT
         public GetItemsByCategoryWindow()
         {
             InitializeComponent();
-
-            DbKeeper db = new DbKeeper();
             
-            tmp = db.GetItemList();
+            tmp = App.Db.GetItemList();
 
             foreach(var item in tmp)
             {

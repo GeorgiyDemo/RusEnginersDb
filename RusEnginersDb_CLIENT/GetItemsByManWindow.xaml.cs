@@ -21,13 +21,11 @@ namespace RusEnginersDb_CLIENT
     public partial class GetItemsByManWindow : Window
     {
         List<Manufacturer> mlist;
-        DbKeeper db;
 
         public GetItemsByManWindow()
         {
             InitializeComponent();
-            db = new DbKeeper();
-            mlist = db.GetManList();
+            mlist = App.Db.GetManList();
             mlist.Sort();
 
             ManList.ItemsSource = mlist;
@@ -40,7 +38,7 @@ namespace RusEnginersDb_CLIENT
 
             List<Item> tmp = new List<Item>();
 
-            foreach(var item in db.GetItemList())
+            foreach(var item in App.Db.GetItemList())
             {
                 if (item.Manufacturer == selected.Name)
                 {

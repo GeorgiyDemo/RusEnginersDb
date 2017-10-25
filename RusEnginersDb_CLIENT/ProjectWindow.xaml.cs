@@ -61,8 +61,10 @@ namespace RusEnginersDb_CLIENT
             ProjectName.Text = project.Name;
             ProjectComment.Text = project.Comment;
 
-            project.CurrentList.Add(new DbKeeper().Item.First());
-
+            if (project.CurrentList.Count == 0)
+            {
+                project.CurrentList.Add(App.Db.Item.First());
+            }
             ItemList.ItemsSource = project.CurrentList;
 
             /*FileStream fs = new FileStream(@"C:\tmp\1.bin", FileMode.Create);
@@ -100,7 +102,7 @@ namespace RusEnginersDb_CLIENT
 
         private void Search()
         {
-            SearchItemWindow siw = new SearchItemWindow((new DbKeeper()).GetItemList().ToArray());
+            SearchItemWindow siw = new SearchItemWindow(App.Db.GetItemList().ToArray());
             siw.ShowDialog();
         }
 

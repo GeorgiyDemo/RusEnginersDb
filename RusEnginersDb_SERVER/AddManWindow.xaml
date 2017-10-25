@@ -1,9 +1,9 @@
-﻿<Window x:Class="RusEnginersDb_SERVER.AddManWindow"
+﻿<Window x:Class="RusEnginersDb.AddManWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RusEnginersDb_SERVER"
+        xmlns:local="clr-namespace:RusEnginersDb"
         mc:Ignorable="d"
         Title="AddManWindow" Height="427.398" Width="300">
     <Window.Resources>
@@ -12,7 +12,7 @@
     <ScrollViewer>
         <StackPanel>
             <Label Content="Картинка" FontWeight="Bold"/>
-            <Image x:Name="ManBitmap" Source="pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png" Height="50" Width="50" HorizontalAlignment="Left" Margin="10" />
+            <Image x:Name="ManBitmap" Source="pack://application:,,,/RusEnginersDb;component/Images/DefaultIcon.png" Height="50" Width="50" HorizontalAlignment="Left" Margin="10" />
             <Button Width="50" Margin="10" Content="Выбрать" Click="ChooseLogo" HorizontalAlignment="Left"/>
             <Label Content="Название" FontWeight="Bold"/>
             <TextBox x:Name="ManName" Margin="10"/>

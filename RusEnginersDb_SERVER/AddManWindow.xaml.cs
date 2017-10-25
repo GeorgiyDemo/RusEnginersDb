@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
 using Microsoft.VisualBasic;
 
-namespace RusEnginersDb_SERVER
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для AddManWindow.xaml
@@ -28,7 +28,7 @@ namespace RusEnginersDb_SERVER
 
         public AddManWindow()
         {
-            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png")));
+            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb;component/Images/DefaultIcon.png")));
             InitializeComponent();
         }
 

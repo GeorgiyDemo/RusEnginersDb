@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace RusEnginersDb_SERVER
+namespace RusEnginersDb
 {
 
     //Именно этот класс отвечает за раздачу данных
@@ -101,7 +101,10 @@ namespace RusEnginersDb_SERVER
                             Task.Factory.StartNew((ctx) =>
                             {
                                 BinaryFormatter formatter = new BinaryFormatter();
-                                ServerData data = App.SData;
+                                formatter.Binder = new ServerToClientNameConverter();
+                                formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+                                ItemListArchive data = new ItemListArchive(App.SData.Items.ToArray(), App.SData.Mans.ToArray());
+
                                 MemoryStream ms = new MemoryStream();
                                 formatter.Serialize(ms, data);
                                 WriteBinary((HttpListenerContext)ctx, ms);

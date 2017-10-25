@@ -5,16 +5,81 @@ using System.Text;
 using System.Threading.Tasks;
 using RusEnginersDb_SHARED;
 using System.Drawing;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using Microsoft.VisualBasic;
 
 namespace RusEnginersDb_CLIENT
 {
-    class DbKeeper
+    public class DbKeeper
     {
-        private static readonly object manlock = new Object();
-        private static List<Manufacturer> manlist = null;
+        private static bool IsInitComplate=false;
 
-        private static readonly object itemlock = new Object();
-        private static List<Item> itemlist = null;
+        private readonly object manlock = new Object();
+        private List<Manufacturer> manlist = null;
+
+        private readonly object itemlock = new Object();
+        private List<Item> itemlist = null;
+
+        public string LastPath
+        {
+            get
+            {
+                string temppath = System.IO.Path.GetTempPath() + "rusenginersdb_path.bin";
+                if (File.Exists(temppath))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    try
+                    {
+                        using (FileStream fs = new FileStream(temppath, FileMode.Open))
+                        {
+                            string ret = (string)formatter.Deserialize(fs);
+                            return ret;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
+                return null;
+            }
+            private set
+            {
+                string temppath = System.IO.Path.GetTempPath() + "rusenginersdb_path.bin";
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    using (FileStream fs = new FileStream(temppath, FileMode.OpenOrCreate))
+                    {
+                        formatter.Serialize(fs, value);
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+        
+
+        public bool LoadFromPath(string path)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fs = new FileStream(path, FileMode.Open);
+            try
+            {
+                ItemListArchive sdata = (ItemListArchive)formatter.Deserialize(fs);
+                Item = sdata.Items;
+                Man = sdata.Mans;
+                LastPath = path;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Interaction.MsgBox("Не удается десериализовать: " + ex.Message);
+            }
+            fs.Close();
+            return false;
+        }
 
         public List<Manufacturer> GetManList()
         {
@@ -85,20 +150,15 @@ namespace RusEnginersDb_CLIENT
         public DbKeeper()
         {
             //Инициализация с подгрузкой из бд
-            if (manlist == null)
+            if (IsInitComplate == false)
             {
-                manlist = new List<Manufacturer>();
-                itemlist = new List<Item>();
-                Item.Add(
-                    new Item("GX960", "Привод", "ДВС",
-                    "Honda", 1000, 5, 60, "lolka",
-                    new Bitmap(@"C:\1.jpg"),  //Иконка
-                    new Bitmap[] { new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg"), new Bitmap(@"C:\1.jpg") },//Массив картинок
-                    new Link[] { new Link("Yandex","http://yandex.ru"), new Link("Скайп","skype://")}
-                ));
-
-                Man.Add(new Manufacturer(new Bitmap(@"C:\1.jpg"), "Honda"));
-
+                Man = new List<Manufacturer>();
+                Item = new List<Item>();
+                IsInitComplate = true;
+            }
+            else
+            {
+                throw new Exception("Экземпляр DbKeeper должен быть только один! Используйте App.Db!");
             }
         }
     }

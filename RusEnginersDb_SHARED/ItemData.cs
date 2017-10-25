@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -10,6 +11,49 @@ using System.Windows.Controls;
 namespace RusEnginersDb_SHARED
 {
     //В этом файле содержатся все классы для хранения примитивов (элемент, производитель)
+
+    class ServerToClientNameConverter : SerializationBinder
+    {
+        public override Type BindToType(string assemblyName, string typeName)
+        {
+            typeName = typeName.Replace("RusEnginersDb_CLIENT", "RusEnginersDb_SERVER");
+            assemblyName = assemblyName.Replace("RusEnginersDb_CLIENT", "RusEnginersDb_SERVER");
+            return Type.GetType(string.Format("{0}, {1}", typeName, assemblyName));
+        }
+    
+    }
+
+    class ClientToServerTypeNameConverter : SerializationBinder
+    {
+        public override Type BindToType(string assemblyName, string typeName)
+        {
+            typeName = typeName.Replace("RusEnginersDb_SERVER", "RusEnginersDb_CLIENT");
+            assemblyName = assemblyName.Replace("RusEnginersDb_SERVER", "RusEnginersDb_CLIENT");
+            return Type.GetType(string.Format("{0}, {1}", typeName, assemblyName));
+        }
+    }
+
+    [Serializable]
+    public class ItemListArchive
+    {
+        public ItemListArchive(Item[] itemarr, Manufacturer[] manarr)
+        {
+            Items = new List<Item>();
+            Mans = new List<Manufacturer>();
+
+            foreach(var item in itemarr)
+            {
+                Items.Add(item);
+            }
+
+            foreach(var item in manarr)
+            {
+                Mans.Add(item);
+            }
+        }
+        public List<Item> Items { get; private set; }
+        public List<Manufacturer> Mans { get; private set; }
+    }
 
     [Serializable]
     public class Manufacturer : IComparable

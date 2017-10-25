@@ -21,7 +21,7 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace RusEnginersDb_SERVER
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml

@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 
-namespace RusEnginersDb_SERVER
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для AddItemWindow.xaml
@@ -33,7 +33,7 @@ namespace RusEnginersDb_SERVER
 
         public AddItemWindow()
         {
-            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb_SERVER;component/Images/DefaultIcon.png")));
+            logo = App.GetBitmap(new BitmapImage(new Uri("pack://application:,,,/RusEnginersDb;component/Images/DefaultIcon.png")));
             Bitmaps = new ObservableCollection<Bitmap>();
             Options = new Dictionary<string, int>();
             Links = new ObservableCollection<Link>();
