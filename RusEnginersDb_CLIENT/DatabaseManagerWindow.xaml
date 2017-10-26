@@ -37,11 +37,16 @@
             <Image Source="pack://application:,,,/RusEnginersDb;component/Images/Icon.png" Height="50" Width="50"/>
             <Label Content="Выбрать базу данных" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
         </StackPanel>
-        <StackPanel Height="30" Grid.Row="1" Margin="15" Orientation="Horizontal">
+        <StackPanel Height="30" Grid.Row="1" Margin="15" Orientation="Horizontal" MouseDown="DownloadNewDbButton">
             <Image Source="pack://application:,,,/RusEnginersDb;component/Images/Add.png"/>
-            <Label Content="Нет доступных баз данных. Нажмите далее для загрузки" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <Label Content="Нет доступных баз данных. Нажмите далее для загрузки" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-3,0,3" />
         </StackPanel>
         <ListBox x:Name="PathListBox" Grid.Row="2" Margin="15" Style="{StaticResource ListStyle}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить выбранный" Click="RemoveItemClick"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal"  Height="30">

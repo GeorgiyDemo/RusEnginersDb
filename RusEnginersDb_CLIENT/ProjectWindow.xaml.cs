@@ -55,6 +55,14 @@ namespace RusEnginersDb_CLIENT
         private void Init()
         {
             //Выполнять инициализацию формы тут из-за разных конструкторов
+
+            do
+            {
+                DatabaseManagerWindow dbmw = new DatabaseManagerWindow();
+                dbmw.ShowDialog();
+            }
+            while (App.Db.Item.Count == 0 || App.Db.Man.Count == 0);
+
             InitializeComponent();
 
             ProjectBitmap.Source = App.ConvertToBitmapSource(project.Bitmap);

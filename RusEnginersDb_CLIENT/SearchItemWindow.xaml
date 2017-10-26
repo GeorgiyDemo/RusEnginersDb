@@ -9,7 +9,7 @@
         x:Name="SearchItemWindowMain"
         Title="SearchItemWindow" Height="300" Width="300">
     <Window.Resources>
-        <ObjectDataProvider ObjectType="{x:Type local:DbKeeper}"
+        <ObjectDataProvider ObjectType="{x:Type local:XamlDbProvider}"
                       MethodName="GetParamsList" x:Key="ParamsList"/>
     </Window.Resources>
     <Grid>
@@ -21,36 +21,39 @@
         <local:SearchBoxControl SearchDelegate="SearchTextChanged" Margin="5"/>
         <Expander Header="Дополнительно" Grid.Row="1" Margin="5">
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <DataGrid x:Name="SearchParamsDataGrid" AutoGenerateColumns="False" >
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Добавить" Click="AddSearchClick"  />
-                            <MenuItem Header="Удалить" Click="RemoveSearchClick"  />
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Параметр">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding Source={StaticResource ParamsList}}" Text="{Binding Path=Param, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsReadOnly="False"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Действие">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox Text="{Binding Path=Sign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" IsReadOnly="False">
-                                        <ComboBoxItem Content="&gt;" />
-                                        <ComboBoxItem Content="&lt;" />
-                                        <ComboBoxItem Content="=" />
-                                    </ComboBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                <StackPanel>
+                    <DataGrid x:Name="SearchParamsDataGrid" AutoGenerateColumns="False" >
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Добавить" Click="AddSearchClick"  />
+                                <MenuItem Header="Удалить" Click="RemoveSearchClick"  />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Параметр">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding Source={StaticResource ParamsList}}" Text="{Binding Path=Param, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsReadOnly="False"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Действие">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Text="{Binding Path=Sign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" IsReadOnly="False">
+                                            <ComboBoxItem Content="&gt;" />
+                                            <ComboBoxItem Content="&lt;" />
+                                            <ComboBoxItem Content="=" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Применить фильтр" Margin="5" Click="ApplyFilter"/>
+                </StackPanel>
             </ScrollViewer>
         </Expander>
 

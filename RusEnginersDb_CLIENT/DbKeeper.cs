@@ -11,6 +11,14 @@ using Microsoft.VisualBasic;
 
 namespace RusEnginersDb_CLIENT
 {
+    public class XamlDbProvider
+    {
+        public static HashSet<string> GetParamsList()
+        {
+            return App.Db.GetParamsList();
+        }
+    }
+
     public class DbKeeper
     {
         private static bool IsInitComplate=false;

@@ -84,15 +84,6 @@ namespace RusEnginersDb_CLIENT
         {
             db = new DbKeeper();
 
-            if (db.LastPath == null)
-            {
-                //Первый запуск, подгрузка бд обязательна
-                DatabaseManagerWindow dmw = new DatabaseManagerWindow();
-                dmw.ShowDialog();
-            }
-
-            if (db.Man.Count == 0 || db.Item.Count == 0) Current.Shutdown();
-
             ChooseProject cp = new ChooseProject();
             cp.ShowDialog();
         }

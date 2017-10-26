@@ -85,7 +85,7 @@ namespace RusEnginersDb_CLIENT
             AfterSearchList.Clear();
             foreach(var item in DefaultList)
             {
-                AfterSearchList.Add(item);
+                AfterSearchList.Add(item.Clone() as Item);
             }
         }
 
@@ -163,6 +163,47 @@ namespace RusEnginersDb_CLIENT
             aiw.ShowDialog();
         }
 
+        private void ApplyFilter(object sender, RoutedEventArgs e)
+        {
+            if (SearchParams.Count == 0)
+            {
+                Interaction.MsgBox("Список параметров пуст!");
+                return;
+            }
+
+            foreach(var item in SearchParams)
+            {
+                if(item.Param=="Не задано")
+                {
+                    Interaction.MsgBox("Есть незаданные параметры!");
+                    return;
+                }
+            }
+
+            for(int i = AfterSearchList.Count-1; i > 0; i--)
+            {
+                var item = AfterSearchList[i];
+                foreach(var searchitem in SearchParams)
+                {
+                    if (!item.Options.ContainsKey(searchitem.Param))
+                    {
+                        AfterSearchList.Remove(item);
+                        continue;
+                    }
+
+                    bool IsOk = false;
+                    Interaction.MsgBox(searchitem.Sign);
+                    if (searchitem.Sign == ">") IsOk = item.Options[searchitem.Param] > searchitem.Value;
+                    else if (searchitem.Sign == "<") IsOk = item.Options[searchitem.Param] < searchitem.Value;
+                    else if (searchitem.Sign == "=") IsOk = item.Options[searchitem.Param] == searchitem.Value;
+
+                    if (!IsOk)
+                    {
+                        AfterSearchList.Remove(item);
+                    }
+                }
+            }
+        }
     }
 
     

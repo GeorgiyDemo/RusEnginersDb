@@ -153,6 +153,7 @@ namespace RusEnginersDb_CLIENT
             pw.ShowDialog();
         }
 
+
         private void OpenProject(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();

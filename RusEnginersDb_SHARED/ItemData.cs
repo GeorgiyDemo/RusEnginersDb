@@ -93,7 +93,7 @@ namespace RusEnginersDb_SHARED
     }
 
     [Serializable]
-    public class Item : IComparable
+    public class Item : IComparable, ICloneable
     {
 
         public Item(string name, string category, string subcategory, string man, int price, int rate, int delivery, string info, Bitmap icon)
@@ -144,6 +144,11 @@ namespace RusEnginersDb_SHARED
         public int CompareTo(object obj)
         {
             return String.Compare(this.Category + " " + this.Subcategory, (obj as Item).Category + " " + (obj as Item).Subcategory);
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
 
         public Bitmap Bitmap { get; private set; }

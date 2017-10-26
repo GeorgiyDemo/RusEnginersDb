@@ -26,8 +26,9 @@ namespace RusEnginersDb_CLIENT
     /// </summary>
     public partial class DatabaseManagerWindow : Window
     {
-        ObservableCollection<string> paths = new ObservableCollection<string>();
         readonly string path;
+        ObservableCollection<string> files = new ObservableCollection<string>();
+
 
         public DatabaseManagerWindow()
         {
@@ -39,22 +40,28 @@ namespace RusEnginersDb_CLIENT
                 Directory.CreateDirectory(path);
             }
 
-            UpdatePaths();
+            foreach (var item in new DirectoryInfo(path).GetFiles())
+                files.Add(item.FullName);
 
-            PathListBox.ItemsSource = paths;
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = path;
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+           | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.Filter = "*.bin";
 
-        }
-
-        private void UpdatePaths()
-        {
-            paths.Clear();
-            foreach (var item in Directory.GetFiles(path))
+            Action lambda = ()=>App.Current.Dispatcher.Invoke(() =>
             {
-                if (item.Substring(item.Length - 3) == "bin")
-                {
-                    paths.Add(item.ToString());
-                }
-            }
+                files.Clear();
+                foreach (var item in new DirectoryInfo(path).GetFiles())
+                    files.Add(item.FullName);
+            });
+
+            watcher.Changed += new FileSystemEventHandler((o, e) => lambda());
+            watcher.Deleted += (o,e)=>lambda();
+            watcher.EnableRaisingEvents = true;
+
+            PathListBox.ItemsSource = files;
+
         }
 
         private string DownloadNewDb()
@@ -71,7 +78,6 @@ namespace RusEnginersDb_CLIENT
                 Interaction.MsgBox("Не удается скачать базу данных! " + ex.Message);
                 name = null;
             }
-            UpdatePaths();
             return name;
         }
 
@@ -99,19 +105,24 @@ namespace RusEnginersDb_CLIENT
 
         private void LoadDbButtonClick(object sender, RoutedEventArgs e)
         {
-            if (paths.Count == 0)
-            {
-                DownloadNewDb();
-                LoadDb(paths.Last());
-            }
             var item = PathListBox.SelectedItem as string;
-            if (item == null) return;
+            if (item == null)
+            {
+                Interaction.MsgBox("Сначала выберите базу данных!");
+            }
             LoadDb(item);
         }
 
         private void DownloadNewDbButton(object sender, MouseButtonEventArgs e)
         {
             DownloadNewDb();
+        }
+
+        private void RemoveItemClick(object sender, RoutedEventArgs e)
+        {
+            var item = PathListBox.SelectedItem as string;
+            if (item == null) return;
+            File.Delete(item);
         }
     }
 }

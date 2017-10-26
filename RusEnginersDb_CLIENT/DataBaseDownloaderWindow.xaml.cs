@@ -46,9 +46,14 @@ namespace RusEnginersDb_CLIENT
             client.DownloadProgressChanged += (o, e) => { DownloadProcessBarValue = e.ProgressPercentage; };
             client.DownloadFileCompleted += (o, e) => 
             {
-                if(e.Error!=null)Interaction.MsgBox(e.Error.ToString());
-                IsComplated = true;
-                Thread.Sleep(5000);
+                if (e.Error != null)
+                {
+                    Interaction.MsgBox(e.Error.ToString());
+                }
+                else
+                {
+                    IsComplated = true;
+                }
                 App.Current.Dispatcher.Invoke(() =>Close());
             };
         }
@@ -63,6 +68,7 @@ namespace RusEnginersDb_CLIENT
             if (!IsComplated)
             {
                 client.CancelAsync();
+                client.Disposed += (o,ev) => File.Delete(path);
             }
             
         }
