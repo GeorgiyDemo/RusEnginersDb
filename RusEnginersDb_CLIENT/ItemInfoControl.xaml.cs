@@ -24,6 +24,9 @@ namespace RusEnginersDb_CLIENT
     {
         public void ShowItemInfo(Item item)
         {
+            //TODO вылет
+            if (item == null) return;
+
             ItemBitmap.Source = App.ConvertToBitmapSource(item.Bitmap);
 
             ItemName.Text = item.Name;

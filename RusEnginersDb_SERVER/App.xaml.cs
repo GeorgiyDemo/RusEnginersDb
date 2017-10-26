@@ -56,7 +56,7 @@ namespace RusEnginersDb
             BitmapData data = bmp.LockBits(new Rectangle(System.Drawing.Point.Empty, bmp.Size), ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             source.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
             bmp.UnlockBits(data);
-            return bmp;
+            return bmp.Clone() as Bitmap;
         }
 
         public static void GetBitmap(out Bitmap logo)

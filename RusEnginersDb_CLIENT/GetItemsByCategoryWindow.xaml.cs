@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
+using Microsoft.VisualBasic;
 
 namespace RusEnginersDb_CLIENT
 {
@@ -23,15 +24,15 @@ namespace RusEnginersDb_CLIENT
         HashSet<string> categorylist=new HashSet<string>();
         HashSet<string> subcategorylist = new HashSet<string>();
 
-        List<Item> tmp;
+        List<Item> allitems;
 
         public GetItemsByCategoryWindow()
         {
             InitializeComponent();
-            
-            tmp = App.Db.GetItemList();
 
-            foreach(var item in tmp)
+            allitems = App.Db.GetItemList();
+
+            foreach(var item in allitems)
             {
                 categorylist.Add(item.Category);
             }
@@ -46,7 +47,7 @@ namespace RusEnginersDb_CLIENT
 
             subcategorylist.Clear();
 
-            foreach(var item in tmp)
+            foreach(var item in allitems)
             {
                 if(item.Category == selected.ToString())
                 {
@@ -62,18 +63,21 @@ namespace RusEnginersDb_CLIENT
         {
             if (CategotyListBox.SelectedItem == null) return;
 
+            List<Item> tmp = new List<Item>();
+
             string category = CategotyListBox.SelectedItem.ToString();
             string subcategory = (SubcategoryListBox.SelectedItem!=null)?SubcategoryListBox.SelectedItem.ToString():String.Empty;
 
-            for(int i = tmp.Count - 1; i < 0; i--)
+            foreach(var item in allitems)
             {
-                if (tmp[i].Category != category)
+                if (item.Category == category && string.IsNullOrWhiteSpace(subcategory))
                 {
-                    tmp.RemoveAt(i);
+                    tmp.Add(item.Clone() as Item);
                 }
-                if (subcategory != String.Empty && tmp[i].Subcategory != subcategory)
+
+                if (item.Category == category && item.Subcategory==subcategory)
                 {
-                    tmp.RemoveAt(i);
+                    tmp.Add(item.Clone() as Item);
                 }
             }
 

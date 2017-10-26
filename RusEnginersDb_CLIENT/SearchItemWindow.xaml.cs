@@ -180,7 +180,7 @@ namespace RusEnginersDb_CLIENT
                 }
             }
 
-            for(int i = AfterSearchList.Count-1; i > 0; i--)
+            for(int i = AfterSearchList.Count-1; i >= 0; i--)
             {
                 var item = AfterSearchList[i];
                 foreach(var searchitem in SearchParams)
@@ -192,9 +192,11 @@ namespace RusEnginersDb_CLIENT
                     }
 
                     bool IsOk = false;
-                    Interaction.MsgBox(searchitem.Sign);
                     if (searchitem.Sign == ">") IsOk = item.Options[searchitem.Param] > searchitem.Value;
-                    else if (searchitem.Sign == "<") IsOk = item.Options[searchitem.Param] < searchitem.Value;
+                    else if (searchitem.Sign == "<")
+                    {
+                        IsOk = item.Options[searchitem.Param] < searchitem.Value;
+                    }
                     else if (searchitem.Sign == "=") IsOk = item.Options[searchitem.Param] == searchitem.Value;
 
                     if (!IsOk)

@@ -127,7 +127,7 @@ namespace RusEnginersDb_SHARED
             this.bitmaps = new List<Bitmap>();
             this.links = new List<Link>();
 
-            this.Bitmap = icon;
+            this.Bitmap = icon.Clone() as Bitmap;
             this.Name = name;
             this.Category = category;
             this.Subcategory = subcategory;
