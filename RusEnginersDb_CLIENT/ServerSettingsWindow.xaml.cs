@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для ServerSettingsWindow.xaml
     /// </summary>
     public partial class ServerSettingsWindow : Window
     {
-        public static readonly string listurl = "http://127.0.0.1/?Getlist=111";
+        public static readonly string serverurl = "http://127.0.0.1:88/";
 
         public ServerSettingsWindow()
         {

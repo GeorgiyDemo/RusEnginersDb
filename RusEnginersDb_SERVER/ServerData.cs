@@ -72,7 +72,7 @@ namespace RusEnginersDb
 
                 try
                 {
-                    listener.Prefixes.Add("http://*:80/"); //http://localhost:8080/
+                    listener.Prefixes.Add("http://*:88/"); //http://localhost:8080/
                     listener.Start();
                 }
                 catch(HttpListenerException)
@@ -80,8 +80,15 @@ namespace RusEnginersDb
                     //Задать запись в реестр для раздачи порта
                     ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe");
                     startInfo.Verb = "runas";
-                    startInfo.Arguments = "/c echo 'Нет разрешения на раздачу данных по http. Выполнение этих комманд исправит проблему...'&netsh http add urlacl url=http://*:80/ user=".Replace("'","\"")+System.Security.Principal.WindowsIdentity.GetCurrent().Name+ "&echo 'Если выполнение этих комманд было неудачно, то обратитесь к вашему системному администратору! Программу нужно перезапустить... Для удаления этой настройки введите комманду netsh http delete urlacl url=http://*:80/'&pause".Replace("'","\"")+"&taskkill /f /im "+ Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)+"&start "+ System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                    Process.Start(startInfo);
+                    startInfo.Arguments = "/c echo 'Нет разрешения на раздачу данных по http. Выполнение этих комманд исправит проблему...'&netsh http add urlacl url=http://*:88/ user=".Replace("'","\"")+System.Security.Principal.WindowsIdentity.GetCurrent().Name+ "&echo 'Если выполнение этих комманд было неудачно, то обратитесь к вашему системному администратору! Программу нужно перезапустить... Для удаления этой настройки введите комманду netsh http delete urlacl url=http://*:80/'&pause".Replace("'","\"")+"&taskkill /f /im "+ Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)+"&start "+ System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                    try
+                    {
+                        Process.Start(startInfo);
+                    }
+                    catch(Exception ex)
+                    {
+                        Interaction.MsgBox("Фаервол блокирует порт 80. Программа не может автоматически исправить проблему. Обратитесь к администратору. Ошибка " + ex.Message);
+                    }
                     return;
                 }
                 
@@ -113,15 +120,69 @@ namespace RusEnginersDb
                             }, context, TaskCreationOptions.LongRunning);
                             continue;
                         }
+
+                        else if (!string.IsNullOrWhiteSpace(parameters["UploadProject"]))
+                        {
+                            Task.Factory.StartNew((ctx) =>
+                            {
+                                BinaryFormatter formatter = new BinaryFormatter();
+                                formatter.Binder = new ServerToClientNameConverter();
+                                formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+
+                                try
+                                {
+                                    Project proj = (Project)formatter.Deserialize(context.Request.InputStream);
+                                    WriteText((HttpListenerContext)ctx, App.SData.AddProject(proj));
+                                }
+                                catch(Exception ex)
+                                {
+                                    WriteText((HttpListenerContext)ctx, "<error>"+ex.Message+"</error>");
+                                }
+                                
+
+
+                            }, context, TaskCreationOptions.LongRunning);
+                            continue;
+                        }
+
+                        else if (!string.IsNullOrWhiteSpace(parameters["Project"]))
+                        {
+                            Task.Factory.StartNew((ctx) =>
+                            {
+                                BinaryFormatter formatter = new BinaryFormatter();
+                                formatter.Binder = new ServerToClientNameConverter();
+                                formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+
+                                try
+                                {
+                                    Project proj = App.SData.Projects[parameters["Project"]];
+                                    if (proj == null)
+                                    {
+                                        WriteText((HttpListenerContext)ctx, "<error>Project not found!</error>");
+                                    }
+
+                                    MemoryStream ms = new MemoryStream();
+                                    formatter.Serialize(ms, proj);
+                                    WriteBinary((HttpListenerContext)ctx, ms);
+                                    ms.Close();
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteText((HttpListenerContext)ctx, "<error>" + ex.Message + "</error>");
+                                }
+
+
+
+                            }, context, TaskCreationOptions.LongRunning);
+                            continue;
+                        }
+
                         else
                         {
                             Task.Factory.StartNew((ctx) =>
                             {
                                 BinaryFormatter formatter = new BinaryFormatter();
-                                using (MemoryStream ms = new MemoryStream())
-                                {
-                                    WriteText((HttpListenerContext)ctx,"<error>Check your parameters</error>");
-                                }
+                                WriteText((HttpListenerContext)ctx, "<error>Check your parameters</error>");
                             }, context, TaskCreationOptions.LongRunning);
                             continue;
                         }
@@ -142,6 +203,33 @@ namespace RusEnginersDb
     public class ServerData
     {
         static bool IsInitComplete = false;
+
+        Dictionary<string, Project> projects = new Dictionary<string, Project>();
+
+        public string AddProject(Project proj)
+        {
+            Guid g;
+            do
+            {
+                g = Guid.NewGuid();
+            }
+            while (projects.ContainsKey(g.ToString()));
+
+            projects.Add(g.ToString(), proj);
+            return g.ToString();
+        }
+
+        public Dictionary<string, Project> Projects
+        {
+            get
+            {
+                return projects;
+            }
+            set
+            {
+                projects = value;
+            }
+        }
 
         //Первичный список
         [Serializable]

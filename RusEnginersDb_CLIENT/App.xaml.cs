@@ -14,9 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RusEnginersDb_SHARED;
 using System.Runtime.CompilerServices;
+using QRCoder;
 
-
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
@@ -58,6 +58,13 @@ namespace RusEnginersDb_CLIENT
             source.CopyPixels(Int32Rect.Empty,data.Scan0,data.Height * data.Stride, data.Stride);
             bmp.UnlockBits(data);
             return bmp;
+        }
+
+        public static Bitmap GenerateQRCode(string text)
+        {
+            QRCodeGenerator generator = new QRCodeGenerator();
+            QRCode code = new QRCode(generator.CreateQrCode(text, QRCodeGenerator.ECCLevel.H));
+            return code.GetGraphic(25);
         }
 
         static DbKeeper db;

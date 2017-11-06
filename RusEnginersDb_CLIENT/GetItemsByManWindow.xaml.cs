@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для GetItemsByManWindow.xaml

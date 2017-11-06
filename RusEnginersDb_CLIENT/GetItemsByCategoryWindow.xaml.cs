@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
 using Microsoft.VisualBasic;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для GetItemsByCategoryWindow.xaml

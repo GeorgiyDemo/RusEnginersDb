@@ -17,7 +17,7 @@ using Microsoft.Win32;
 using Microsoft.VisualBasic;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для SaveManager.xaml

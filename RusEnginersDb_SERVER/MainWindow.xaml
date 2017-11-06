@@ -41,8 +41,9 @@
 
             <StackPanel x:Name="SlideMenu" Background="WhiteSmoke" Width="{StaticResource SlideMenuClosedWidth}">
                 <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Menu.png" ItemClick="MenuItemClick"/>
-                <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Items.png" ItemClick="Items"/>
-                <local:SlideMenuItemControl IconHeightWidth="25" Text="Меню" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Manufacturer.png" ItemClick="Mans"/>
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Элементы" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Items.png" ItemClick="Items"/>
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Производители" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Manufacturer.png" ItemClick="Mans"/>
+                <local:SlideMenuItemControl IconHeightWidth="25" Text="Проекты" IconSource="pack://application:,,,/RusEnginersDb;component/Images/Projects.png" ItemClick="Projects"/>
             </StackPanel>
 
             <Grid Grid.Column="1">

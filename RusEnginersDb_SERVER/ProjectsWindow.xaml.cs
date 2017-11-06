@@ -11,28 +11,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using RusEnginersDb_SHARED;
 
 namespace RusEnginersDb
 {
     /// <summary>
-    /// Логика взаимодействия для AddItemWindow.xaml
+    /// Логика взаимодействия для ProjectsWindow.xaml
     /// </summary>
-    public partial class AddItemWindow : Window
+    public partial class ProjectsWindow : Window
     {
-        private Item tmp;
-
-        public AddItemWindow(Item i)
+        public ProjectsWindow()
         {
-            tmp = i;
             InitializeComponent();
-            ItemControl.ShowItemInfo(i);
+            ProjectListBox.ItemsSource = App.SData.Projects;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ProjectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ProjectWindow.AddItem(tmp);
-            Close();
+            var item = ProjectListBox.SelectedIndex;
+            if (item == -1) return;
+            System.Diagnostics.Process.Start("http://127.0.0.1/?Project="+App.SData.Projects.ElementAt(item).Key);
         }
     }
 }

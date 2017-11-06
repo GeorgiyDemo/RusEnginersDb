@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using RusEnginersDb_SHARED;
 using System.Collections.ObjectModel;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для ChooseProject.xaml

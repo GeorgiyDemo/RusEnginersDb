@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.VisualBasic;
 using RusEnginersDb_SHARED;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для ItemInfoControl.xaml

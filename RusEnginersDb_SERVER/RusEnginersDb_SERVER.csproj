@@ -71,6 +71,9 @@
     <Compile Include="ManEditorWindow.xaml.cs">
       <DependentUpon>ManEditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProjectsWindow.xaml.cs">
+      <DependentUpon>ProjectsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServerData.cs" />
     <Compile Include="SlideMenuItemControl.xaml.cs">
       <DependentUpon>SlideMenuItemControl.xaml</DependentUpon>
@@ -100,6 +103,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

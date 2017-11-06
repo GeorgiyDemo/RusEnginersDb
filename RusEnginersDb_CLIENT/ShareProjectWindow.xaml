@@ -1,0 +1,27 @@
+﻿<Window x:Class="RusEnginersDb.ShareProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RusEnginersDb"
+        mc:Ignorable="d"
+        Title="ShareProjectWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="pack://application:,,,/RusEnginersDb;component/Images/Icon.png" x:Name="QrCodeImage" Grid.Column="0"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Margin="10">
+                <TextBlock Text="Отсканируйте QR код или отправьте эту ссылку..." TextWrapping="Wrap"/>
+                <TextBox x:Name="LinkTextBox" Text="http://..."/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

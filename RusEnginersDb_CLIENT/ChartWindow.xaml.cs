@@ -15,7 +15,7 @@ using OxyPlot;
 using OxyPlot.Series;
 using RusEnginersDb_SHARED;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для ChartWindow.xaml

@@ -16,7 +16,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using RusEnginersDb_SHARED;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для SearchItemWindow.xaml

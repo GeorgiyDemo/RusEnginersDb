@@ -19,7 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для DatabaseManagerWindow.xaml
@@ -70,7 +70,7 @@ namespace RusEnginersDb_CLIENT
             Interaction.MsgBox(name);
             try
             {
-                DataBaseDownloaderWindow dbdw = new DataBaseDownloaderWindow(ServerSettingsWindow.listurl,name);
+                DataBaseDownloaderWindow dbdw = new DataBaseDownloaderWindow(ServerSettingsWindow.serverurl+"?Getlist=1",name);
                 dbdw.ShowDialog();
             }
             catch(Exception ex)
@@ -92,8 +92,8 @@ namespace RusEnginersDb_CLIENT
                     ItemListArchive tmp = (ItemListArchive)formatter.Deserialize(fs);
                     App.Db.Item = tmp.Items;
                     App.Db.Man = tmp.Mans;
-                    Interaction.MsgBox(tmp.Items.First().Name);
-                    //Close();
+                    //Interaction.MsgBox(tmp.Items.First().Name);
+                    Close();
                 }
             }
             catch (Exception ex)

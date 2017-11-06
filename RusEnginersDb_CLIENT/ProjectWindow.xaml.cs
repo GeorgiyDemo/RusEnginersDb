@@ -18,7 +18,7 @@ using Microsoft.VisualBasic;
 using System.Windows.Media.Animation;
 using RusEnginersDb_SHARED;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     /// <summary>
     /// Логика взаимодействия для ProjectWindow.xaml
@@ -148,6 +148,12 @@ namespace RusEnginersDb_CLIENT
         {
             ChartWindow cw = new ChartWindow(project);
             cw.ShowDialog();
+        }
+
+        private void ShareProjectMenuClick(object sender, RoutedEventArgs e)
+        {
+            ShareProjectWindow spw = new ShareProjectWindow(project);
+            spw.ShowDialog();
         }
     }
 }

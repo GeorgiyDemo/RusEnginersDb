@@ -58,6 +58,12 @@ namespace RusEnginersDb
             mew.ShowDialog();
         }
 
+        public void Projects()
+        {
+            ProjectsWindow pw = new ProjectsWindow();
+            pw.ShowDialog();
+        }
+
         public MainWindow()
         {
             InitializeComponent();

@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using Microsoft.VisualBasic;
 
-namespace RusEnginersDb_CLIENT
+namespace RusEnginersDb
 {
     public class XamlDbProvider
     {
