@@ -93,6 +93,7 @@ namespace RusEnginersDb_SHARED
     }
 
     [Serializable]
+    [DataContract]
     public class Item : IComparable, ICloneable
     {
 
@@ -151,30 +152,36 @@ namespace RusEnginersDb_SHARED
             return this.MemberwiseClone();
         }
 
+
         public Bitmap Bitmap { get; private set; }
 
+        [DataMember]
         public string Name { get; private set; }
+
+        [DataMember]
         public string Category { get; private set; }
+
+        [DataMember]
         public string Subcategory { get; private set; }
+
+        [DataMember]
         public string Manufacturer { get; private set; }
+
+        [DataMember]
         public int Price { get; private set; }
+
+        [DataMember]
         public int Rate { get; private set; }
+
+        [DataMember]
         public int Delivery { get; private set; }
+
+        [DataMember]
         public string Info { get; private set; }
 
-        Dictionary<string, int> options;
-        public Dictionary<string, int> Options
-        {
-            get
-            {
-                Dictionary<string, int> temp = options; 
-                return temp;
-            }
-            private set
-            {
-                options = value;
-            }
-        }
+
+        [DataMember]
+        public Dictionary<string, int> Options { get; set; }
 
         List<Bitmap> bitmaps;
 
@@ -195,6 +202,8 @@ namespace RusEnginersDb_SHARED
         }
 
         List<Link> links;
+
+        [DataMember]
         public Link[] Links
         {
             get
@@ -213,6 +222,7 @@ namespace RusEnginersDb_SHARED
     }
 
     [Serializable]
+    [DataContract]
     public class Link
     {
         public Link(string title,string url)
@@ -221,7 +231,10 @@ namespace RusEnginersDb_SHARED
             this.Url = url;
         }
 
+        [DataMember]
         public string Title { get; private set; }
+
+        [DataMember]
         public string Url { get; private set; }
     }
 }

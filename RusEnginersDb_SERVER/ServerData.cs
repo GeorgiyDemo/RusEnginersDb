@@ -10,8 +10,10 @@ using System.Net;
 using System.IO;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
+using System.Linq;
 using System.Collections.Specialized;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
 
 namespace RusEnginersDb
 {
@@ -43,7 +45,7 @@ namespace RusEnginersDb
 
         void WriteText(HttpListenerContext ctx, string text)
         {
-            byte[] str=Encoding.Unicode.GetBytes(text);
+            byte[] str=Encoding.Default.GetBytes(text);
             MemoryStream ms = new MemoryStream();
             ms.Write(str,0, str.Length);
 
@@ -52,7 +54,7 @@ namespace RusEnginersDb
             response.ContentLength64 = ms.Length;
             response.SendChunked = false;
             response.ContentType = System.Net.Mime.MediaTypeNames.Text.Html;
-            response.ContentEncoding = Encoding.UTF8;
+            response.ContentEncoding = Encoding.Default;
 
             using (BinaryWriter sw = new BinaryWriter(response.OutputStream))
             {
@@ -165,6 +167,39 @@ namespace RusEnginersDb
                                     formatter.Serialize(ms, proj);
                                     WriteBinary((HttpListenerContext)ctx, ms);
                                     ms.Close();
+                                }
+                                catch (Exception ex)
+                                {
+                                    WriteText((HttpListenerContext)ctx, "<error>" + ex.Message + "</error>");
+                                }
+
+
+
+                            }, context, TaskCreationOptions.LongRunning);
+                            continue;
+                        }
+
+                        else if (!string.IsNullOrWhiteSpace(parameters["GetItems"]))
+                        {
+                            Task.Factory.StartNew((ctx) =>
+                            {
+                                try
+                                {
+                                    MemoryStream stream = new MemoryStream();
+                                    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(Item[]));
+
+                                    List<Item> tmp = new List<Item>();
+                                    for(int i=Int32.Parse(parameters["From"]);i<Int32.Parse(parameters["To"]); i++)
+                                    {
+                                        tmp.Add(App.SData.Items[i]);
+                                    }
+
+                                    jsonFormatter.WriteObject(stream, tmp.ToArray());
+                                    Interaction.MsgBox(stream.Length);
+                                    stream.Position = 0;
+                                    StreamReader sr = new StreamReader(stream);
+                                    Console.Write("JSON form of Person object: ");
+                                    WriteText((HttpListenerContext)ctx, sr.ReadToEnd());
                                 }
                                 catch (Exception ex)
                                 {
